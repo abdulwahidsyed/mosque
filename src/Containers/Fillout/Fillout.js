@@ -16,18 +16,18 @@ const Fillout = () => {
   const [formData, setformData] = useState([
     {
       name: "name",
-      value: "ABDUL WAHID",
+      value: "",
       placeholder: "Name",
     },
     {
       name: "email",
-      value: "a@a.com",
+      value: "",
       placeholder: "Email address",
       type: "email",
     },
     {
       name: "phoneNumber",
-      value: "111",
+      value: "",
       placeholder: "Phone Number",
     },
   ]);
@@ -75,7 +75,7 @@ const Fillout = () => {
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
-        }, 300000);
+        }, 2000);
       })
       .catch((err) => {
         console.log("my err", err);
@@ -155,7 +155,7 @@ const Fillout = () => {
             onClose={() => setSuccess(false)}
             dismissible
           >
-            <Alert.Heading>Hey, nice to see you</Alert.Heading>
+            <Alert.Heading>Success</Alert.Heading>
           </Alert>
         </div>
       )}
