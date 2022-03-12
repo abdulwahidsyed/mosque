@@ -1,7 +1,8 @@
 .main-container {
-  width: 50%;
+  /* width: 50%; */
   margin: auto;
   height: 500px;
+  padding: 10px;
 }
 
 .react-datepicker-ignore-onclickoutside {
@@ -68,4 +69,18 @@
 .alert-danger,
 .alert-success {
   width: 35%;
+}
+
+@media only screen and (min-width: 0) {
+  /* For tablets: */
+  .main-container {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .main-container {
+    width: 50%;
+  }
 }
