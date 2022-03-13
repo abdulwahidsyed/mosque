@@ -20,7 +20,7 @@ const Fillout = () => {
       type: "text",
       label: "Name",
       error: false,
-      value: "a",
+      value: "",
       inpType: "text",
     },
     {
@@ -29,7 +29,7 @@ const Fillout = () => {
       type: "email",
       label: "Email",
       error: false,
-      value: "a@a.com",
+      value: "",
       inpType: "text",
     },
     {
@@ -38,7 +38,7 @@ const Fillout = () => {
       type: "number",
       label: "Phone Number",
       error: false,
-      value: "1",
+      value: "",
       inpType: "text",
     },
     {
@@ -47,7 +47,7 @@ const Fillout = () => {
       type: "number",
       label: "Amount",
       error: false,
-      value: "1",
+      value: "",
       inpType: "text",
     },
     {

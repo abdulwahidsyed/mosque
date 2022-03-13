@@ -23,8 +23,17 @@
   background-color: rgba(255, 255, 255, 0.95) !important;
 }
 
+.fade {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .modal-content {
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+  }
+  .fade {
     -webkit-backdrop-filter: blur(10px) !important;
     backdrop-filter: blur(10px) !important;
     background-color: rgba(255, 255, 255, 0.5) !important;
