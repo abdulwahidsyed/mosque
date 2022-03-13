@@ -6,60 +6,78 @@ import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import MyVerticallyCenteredModal from "./Modal/Modal";
 import "./Fillout.css";
+import Input from "../../components/Input/Input";
 
 const Fillout = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({ show: false, message: "" });
-  const [startDate, setStartDate] = useState("");
+  const [networkError, setNetworkError] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [formData, setformData] = useState([
+  const [formData, setFormData] = useState([
     {
       name: "name",
-      value: "",
       placeholder: "Name",
+      type: "text",
+      label: "Name",
+      error: false,
+      value: "a",
+      inpType: "text",
     },
     {
       name: "email",
-      value: "",
-      placeholder: "Email address",
+      placeholder: "@email.com",
       type: "email",
+      label: "Email",
+      error: false,
+      value: "a@a.com",
+      inpType: "text",
     },
     {
       name: "phoneNumber",
-      value: "",
       placeholder: "Phone Number",
+      type: "number",
+      label: "Phone Number",
+      error: false,
+      value: "1",
+      inpType: "text",
+    },
+    {
+      name: "amount",
+      placeholder: "Amount",
+      type: "number",
+      label: "Amount",
+      error: false,
+      value: "1",
+      inpType: "text",
+    },
+    {
+      name: "date",
+      placeholder: "Select Date",
+      type: "text",
+      label: "Select Date",
+      error: false,
+      value: "",
+      inpType: "date",
     },
   ]);
 
-  const onChangeHandler = (e) => {
+  const submitForm = (e) => {
+    let formIsValid = true;
     const k = [...formData].map((el) => {
-      if (el.name === e.target.name) {
-        return {
-          ...el,
-          value: e.target.value,
-        };
+      if (!el.value) {
+        formIsValid = false;
+        return { ...el, error: true };
       }
       return { ...el };
     });
-
-    k[e.target.name] = {
-      ...k[e.target.name],
-      value: e.target.value,
-    };
-    setformData(k);
-  };
-
-  const submitForm = (e) => {
-    e.preventDefault();
-    if (!startDate) {
-      setError({ show: true, message: "Please select date ..." });
+    setFormData(k);
+    if (!formIsValid) {
       return;
     }
     setModalShow(true);
   };
 
-  const confirmSubmit = () => {
+  const checkoutHandler = () => {
     setLoading(true);
     const promise = new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -75,16 +93,16 @@ const Fillout = () => {
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
-        }, 2000);
+        }, 3000);
       })
       .catch((err) => {
         console.log("my err", err);
-        setError({
-          show: true,
-          message: "Something went wrong. Please try again",
-        });
         setLoading(false);
         setModalShow(false);
+        
+        setTimeout(() => {
+          setNetworkError(true);
+        }, 3000);
       });
   };
 
@@ -93,59 +111,65 @@ const Fillout = () => {
       return {
         ...el,
         value: "",
+        error: false,
       };
     });
-    setformData(k);
-    setStartDate("");
+    setFormData(k);
   };
 
-  const closeError = () => {
-    setError({ show: false, message: "" });
+  const inpChangeHandler = (e) => {
+    const k = formData.map((el) => {
+      if (el.name === e.target.name) {
+        return {
+          ...el,
+          value: e.target.value,
+          error: false,
+        };
+      }
+      return { ...el };
+    });
+    setFormData(k);
+  };
+
+  const dateChangeHandler = (e) => {
+    const k = formData.map((el) => {
+      if (el.name === "date") {
+        return {
+          ...el,
+          value: e,
+          error: false,
+        };
+      }
+      return { ...el };
+    });
+    setFormData(k);
   };
 
   return (
-    <div className="main-container">
-      <Form onSubmit={submitForm}>
-        {formData.map((el) => {
-          return (
-            <Form.Group className="mb-3" key={el.name}>
-              <Form.Label>{el.placeholder}</Form.Label>
-              <Form.Control
-                required
-                type={el.type || "text"}
-                name={el.name}
-                placeholder={el.placeholder}
-                value={el.value}
-                onChange={(e) => onChangeHandler(e)}
-              />
-            </Form.Group>
-          );
-        })}
-
-        <Form.Group className="mb-3" required>
-          <Form.Label>Select Date</Form.Label>
-          <DatePicker
-            selected={startDate}
-            minDate={new Date()}
-            onChange={(date) => setStartDate(date)}
+    <div className="form-container">
+      {formData.map((el) => {
+        return (
+          <Input
+            inp={el}
+            onChange={inpChangeHandler}
+            dateChangeHandler={dateChangeHandler}
+            key={el.name}
           />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
+        );
+      })}
+      <Button
+        variant="outline-dark"
+        className="submit-btn"
+        onClick={submitForm}
+      >
+        Submit
+      </Button>
+
       {loading && (
         <div className="spinner-wrap">
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
-        </div>
-      )}
-      {error.show && (
-        <div className="alert-wrap" onClick={closeError}>
-          <Alert variant="danger" onClose={closeError} dismissible>
-            <Alert.Heading>{error.message}</Alert.Heading>
-          </Alert>
         </div>
       )}
       {success && (
@@ -159,17 +183,18 @@ const Fillout = () => {
           </Alert>
         </div>
       )}
+      {networkError && (
+        <div className="alert-wrap" onClick={() => setNetworkError(false)}>
+          <Alert variant="danger" onClose={() => setNetworkError(false)} dismissible>
+            <Alert.Heading>Something went wrong. Please try again.</Alert.Heading>
+          </Alert>
+        </div>
+      )}
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        onSubmit={confirmSubmit}
-        formdata={[
-          ...formData,
-          {
-            value: `${startDate}`,
-            placeholder: "Selected Date",
-          },
-        ]}
+        onSubmit={checkoutHandler}
+        formdata={[...formData]}
       />
     </div>
   );

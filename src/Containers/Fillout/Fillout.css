@@ -1,42 +1,18 @@
-.main-container {
-  /* width: 50%; */
+.form-container {
   margin: auto;
-  height: 500px;
   padding: 10px;
+  max-width: 700px;
+  padding-top: 126px;
 }
 
-.react-datepicker-ignore-onclickoutside {
-  display: block;
+.submit-btn {
   width: 100%;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  -webkit-appearance: none;
-  appearance: none;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.react-datepicker__input-container input {
-  display: block;
-  width: 100%;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  -webkit-appearance: none;
-  appearance: none;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  height: 38px !important;
+  font-size: medium !important;
+  padding-top: 6px !important;
+  padding-bottom: 4px !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-width: 1px !important;
 }
 
 .spinner-wrap {
@@ -66,21 +42,49 @@
   background-color: rgba(255, 255, 255, 0.51);
 }
 
-.alert-danger,
-.alert-success {
-  width: 35%;
+.alert-heading h4 {
+  margin-block: 0;
 }
 
-@media only screen and (min-width: 0) {
-  /* For tablets: */
-  .main-container {
-    width: 100%;
+.alert-danger,
+.alert-success {
+  background-color: rgba(255, 255, 255, 0.51);
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .submit-btn{
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .alert-danger {
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(6px) !important;
+    background-color: rgba(255, 164, 164, 0.5) !important;
+  }
+
+  .alert-success {
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(6px) !important;
+    background-color: rgba(0, 205, 119, 0.5) !important;
+  }
+  .alert-danger {
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+    background-color: rgba(255, 164, 164, 0.5) !important;
   }
 }
 
-@media only screen and (min-width: 768px) {
-  /* For desktop: */
-  .main-container {
-    width: 50%;
+@media only screen and (min-width: 0) {
+  .alert-danger,
+  .alert-success {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 801px) {
+  .alert-danger,
+  .alert-success {
+    width: 40%;
   }
 }
