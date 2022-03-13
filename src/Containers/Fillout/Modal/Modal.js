@@ -20,15 +20,15 @@ const MyVerticallyCenteredModal = (props) => {
           {props.formdata.map((el) => {
             return (
               <div className="row" key={el.placeholder}>
-                <p>{el.placeholder}</p>
-                <p>{el.value}</p>
+                <p>{el.label}</p>
+                <p>{el.value.toString()}</p>
               </div>
             );
           })}
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onSubmit}>Submit</Button>
+        <Button onClick={props.onSubmit}>Checkout</Button>
       </Modal.Footer>
     </Modal>
   );
